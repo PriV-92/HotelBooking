@@ -66,8 +66,7 @@ namespace HotelBooking.Test.Tests
             BookingForm.SubmitForm();
 
             //Assert
-            //Sleep is here to wait for the page to be updated.
-            //Thread.Sleep(10000);
+            //Wait is required for the page to be updated. >10seconds will fail.
             wait.Until(driver => driver.GetCountOfBookings() > currentBookings);
 
             var lastBooking = BookingFormPage.GetLastBooking(driver);
