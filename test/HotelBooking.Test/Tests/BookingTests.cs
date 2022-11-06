@@ -12,8 +12,10 @@ namespace HotelBooking.Test.Tests
         [SetUp]
         public void StartBrowser()
         {
-            driver = new ChromeDriver();
-            driver.Url = "http://hotel-test.equalexperts.io/";
+            driver = new ChromeDriver
+            {
+                Url = "http://hotel-test.equalexperts.io/"
+            };
 
             wait = new(driver, timeout: TimeSpan.FromSeconds(5))
             {
@@ -77,7 +79,7 @@ namespace HotelBooking.Test.Tests
         }
 
         [Test]
-        public void GIVEN_hotel_bookings_WHEN_specific_booking_deleted_THEN_booking_is_removed()
+        public void GIVEN_hotel_bookings_WHEN_first_booking_deleted_THEN_booking_is_removed()
         {
             //Arrange
             //Wait is required as the booking table loads after the page has completed loading. 
