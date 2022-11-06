@@ -24,8 +24,17 @@ jobs:
     runs-on: self-hosted
     
     steps:
-     - run: dotnet test --no-build --no-restore --results-directory ".\TestResults\"
+     - run: dotnet test ./test/HotelBooking.Test --no-build --no-restore --results-directory ".\TestResults\" --logger "trx;LogFileName=testResults.trx"
 
-  #PublishResults:
-    #name: Publish Test Results
-    #runs-on: ubuntu-latest
+  PublishResults:
+    name: Publish Test Results
+    runs-on: self-hosted
+    
+    steps:
+      - name: Publish Test Results
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # run this step even if previous step failed
+        with:
+          name: Booking Tests
+          path: ./TestResults/testResults.trx
+          reporter: dotnet-trx
