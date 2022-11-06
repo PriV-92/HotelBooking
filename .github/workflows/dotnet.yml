@@ -22,6 +22,7 @@ jobs:
   Test:
     name: Run Tests
     runs-on: self-hosted
+    needs: [Build]
     
     steps:
      - run: dotnet test ./test/HotelBooking.Test --no-build --no-restore --results-directory ".\TestResults\" --logger "trx;LogFileName=testResults.trx"
@@ -29,6 +30,7 @@ jobs:
   PublishResults:
     name: Publish Test Results
     runs-on: self-hosted
+    needs: [Test]
     
     steps:
       - name: Publish Test Results
