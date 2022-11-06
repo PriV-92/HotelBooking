@@ -17,7 +17,7 @@ namespace HotelBooking.Test.Tests
                 Url = "http://hotel-test.equalexperts.io/"
             };
 
-            wait = new(driver, timeout: TimeSpan.FromSeconds(5))
+            wait = new(driver, timeout: TimeSpan.FromSeconds(10))
             {
                 PollingInterval = TimeSpan.FromSeconds(1),
             };
@@ -54,11 +54,11 @@ namespace HotelBooking.Test.Tests
         {
             //Arrange
             var BookingForm = new BookingFormPage(driver);
-
+            int currentBookings = driver.GetCountOfBookings();
 
             //Act
             BookingForm.EnterFirstName("Bob");
-            BookingForm.EnterLastName("b");
+            BookingForm.EnterLastName("d");
             BookingForm.EnterPrice("100");
             BookingForm.SelectDeposit(true);
             BookingForm.SelectCheckinDate("2022-12-01");
@@ -67,11 +67,12 @@ namespace HotelBooking.Test.Tests
 
             //Assert
             //Sleep is here to wait for the page to be updated.
-            Thread.Sleep(2000);
+            //Thread.Sleep(10000);
+            wait.Until(driver => driver.GetCountOfBookings() > currentBookings);
 
             var lastBooking = BookingFormPage.GetLastBooking(driver);
             lastBooking[0].Text.Should().Be("Bob");
-            lastBooking[1].Text.Should().Be("b");
+            lastBooking[1].Text.Should().Be("d");
             lastBooking[2].Text.Should().Be("100");
             lastBooking[3].Text.Should().Be("true");
             lastBooking[4].Text.Should().Be("2022-12-01");
