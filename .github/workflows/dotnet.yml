@@ -40,3 +40,8 @@ jobs:
           name: Booking Tests
           path: ./TestResults/testResults.trx
           reporter: dotnet-trx
+      - name: Publish Test Result Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: testResults
+          path: ./TestResults
