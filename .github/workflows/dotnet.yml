@@ -26,6 +26,6 @@ jobs:
     steps:
      - run: dotnet test --no-build --verbosity normal
 
-  PublishResults:
-    name: Publish Test Results
-    runs-on: ubuntu-latest
+  #PublishResults:
+    #name: Publish Test Results
+    #runs-on: ubuntu-latest
