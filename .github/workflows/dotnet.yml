@@ -38,7 +38,7 @@ jobs:
   PublishResults:
     name: Publish Test Results
     runs-on: self-hosted
-    needs: [Test]
+    needs: [Test, PerfTest]
     
     steps:
       - name: Publish Test Results
