@@ -86,13 +86,18 @@ namespace HotelBooking.Test.Tests
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             wait?.Until(driver => driver.FindElement(By.XPath("//*[@id=\"bookings\"]/div[2]/div[1]/p")));
 
+
             //Act
             int currentBookings = driver.GetCountOfBookings();
             var booking = driver.GetFirstBooking();
             booking?.FindElement(By.XPath("//div[7]/input")).Click();
 
             //Assert
-            Thread.Sleep(1000);
+            wait = new(driver, timeout: TimeSpan.FromSeconds(10))
+            {
+                PollingInterval = TimeSpan.FromSeconds(1),
+            };
+            wait.Until(driver => driver.GetCountOfBookings() > currentBookings);
             int updatedtBookings = driver.GetCountOfBookings();
 
             currentBookings.Should().BeGreaterThan(updatedtBookings);
