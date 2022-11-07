@@ -30,7 +30,7 @@ jobs:
   PerfTest:
     name: Run Performance Tests
     runs-on: self-hosted
-    needs: [Build]
+    needs: [Test]
     
     steps:
      - run: dotnet test  ./test/HotelBooking.PerfTest --no-build --no-restore --results-directory ".\TestResults\Performance" --logger "trx;LogFileName=testResults.trx"
@@ -38,7 +38,7 @@ jobs:
   PublishResults:
     name: Publish Test Results
     runs-on: self-hosted
-    needs: [Test, PerfTest]
+    needs: [PerfTest]
     
     steps:
       - name: Publish Test Results
