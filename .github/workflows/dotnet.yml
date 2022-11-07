@@ -27,6 +27,14 @@ jobs:
     steps:
      - run: dotnet test ./test/HotelBooking.Test --no-build --no-restore --results-directory ".\TestResults\" --logger "trx;LogFileName=testResults.trx"
 
+  PerfTest:
+    name: Run Performance Tests
+    runs-on: self-hosted
+    needs: [Build]
+    
+    steps:
+     - run: dotnet test  ./test/HotelBooking.PerfTest --no-build --no-restore --results-directory ".\TestResults\Performance" --logger "trx;LogFileName=testResults.trx"
+
   PublishResults:
     name: Publish Test Results
     runs-on: self-hosted
@@ -39,6 +47,13 @@ jobs:
         with:
           name: Booking Tests
           path: ./TestResults/testResults.trx
+          reporter: dotnet-trx
+      - name: Publish Performance Test Results
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # run this step even if previous step failed
+        with:
+          name: Booking Performance Tests
+          path: ./TestResults/Performance/testResults.trx
           reporter: dotnet-trx
       - name: Publish Test Result Artifacts
         uses: actions/upload-artifact@v3
