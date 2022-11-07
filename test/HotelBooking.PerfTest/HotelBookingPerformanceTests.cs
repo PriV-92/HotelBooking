@@ -49,7 +49,7 @@ namespace HotelBooking.PerfTest
                 //Simulation.RampConstant(copies: 10,during: TimeSpan.FromSeconds(60))
                 Simulation.InjectPerSec(rate: 1, during: TimeSpan.FromSeconds(10)),
                 Simulation.KeepConstant(copies: 2, during: TimeSpan.FromSeconds(10)),
-                Simulation.RampConstant(copies: 10, during: TimeSpan.FromSeconds(10))
+                Simulation.RampConstant(copies: 5, during: TimeSpan.FromSeconds(10))
             );
 
             //Act
