@@ -60,7 +60,7 @@ namespace HotelBooking.PerfTest
                 .WithReportFileName("HotelBooking")
                 //TODO - Add runsettings for local pathing.
                 //.WithReportFolder("../../../../../TestResults/Performance")
-                .WithReportFolder("./TestResults/Performance")
+                .WithReportFolder("./TestResults/NBomber")
                 .WithReportFormats(ReportFormat.Html, ReportFormat.Md)
                 .Run();
 
